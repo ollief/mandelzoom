@@ -16,8 +16,7 @@ $.
 To run, use `$./mandelzoom -2 -1.25 2.5 200 > out.txt`.
 
 The output can be imported into Mathematica for visualization :
-    ```M = Import["/Users/ollief/Documents/mandelzoom/out.txt", "csv"];
-
-    ArrayPlot[M, Frame -> None]```
+```M = Import["/Users/ollief/Documents/mandelzoom/out.txt", "csv"];
+ArrayPlot[M, Frame -> None]```
 
 The next step is to create a Cocoa (OS X) application to provide instant visualisation and control.
