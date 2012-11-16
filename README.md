@@ -10,13 +10,14 @@ The main files (`mandelzoom.c` and `mandelzoom.h`) are the core of this project.
 
 The command line program (`mandelzoom-command-line.c`) makes use of those functions to print a matrix into a file.
 
-To compile, use `$gcc -Wall -std=c99 mandelzoom.c mandelzoom-command-line.c -o mandelzoom
-$.
+To compile, use `$gcc -Wall -std=c99 mandelzoom.c mandelzoom-command-line.c -o mandelzoom`.
 
 To run, use `$./mandelzoom -2 -1.25 2.5 200 > out.txt`.
 
 The output can be imported into Mathematica for visualization :
 ```M = Import["/Users/ollief/Documents/mandelzoom/out.txt", "csv"];
 ArrayPlot[M, Frame -> None]```
+
+![Visualising Mandelbrot Set in Mathematica](https://github.com/ollief/mandelzoom/raw/master/imge/mandelzoom-1.png)
 
 The next step is to create a Cocoa (OS X) application to provide instant visualisation and control.
