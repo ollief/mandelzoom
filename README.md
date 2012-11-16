@@ -1,7 +1,7 @@
 Mandelzoom
 ==========
 
-This is my take on the Mandelzoom program described in the book ["The Armchair Universe"(http://www.goodreads.com/book/show/118421.The_Armchair_Universe).
+This is my take on the Mandelzoom program described in the book ["The Armchair Universe"](http://www.goodreads.com/book/show/118421.The_Armchair_Universe).
 
 The main files (`mandelzoom.c` and `mandelzoom.h`) are the core of this project. They provide the functions to:
 * allocate/free a dynamic memory structure of a required size;
