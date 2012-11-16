@@ -18,6 +18,6 @@ The output can be imported into Mathematica for visualization :
 ```M = Import["/Users/ollief/Documents/mandelzoom/out.txt", "csv"];
 ArrayPlot[M, Frame -> None]```
 
-![Visualising Mandelbrot Set in Mathematica](https://github.com/ollief/mandelzoom/raw/master/imge/mandelzoom-1.png)
+![Visualising Mandelbrot Set in Mathematica](https://github.com/ollief/mandelzoom/raw/master/img/mandelzoom-1.png)
 
 The next step is to create a Cocoa (OS X) application to provide instant visualisation and control.
