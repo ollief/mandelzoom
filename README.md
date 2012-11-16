@@ -12,4 +12,4 @@ The command line program (`mandelzoom-command-line.c`) makes use of those functi
     M = Import["/Users/ollief/Documents/mandelzoom/out.txt", "csv"];
     ArrayPlot[M, Frame -> None]
 
-The next step is to create a Cocoa (OS X) application to provide visualisation.
+The next step is to create a Cocoa (OS X) application to provide instant visualisation and control.
