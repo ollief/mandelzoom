@@ -22,6 +22,14 @@ The output can be imported into Mathematica for visualization :
 ```M = Import["/Users/ollief/Documents/mandelzoom/out.txt", "csv"];
 ArrayPlot[M, Frame -> None]```
 
+The next steps
+--------------
+* implementing argument validation for functions in `mandelbrot.c`
+* documenting the header file and the functions in `mandelbrot.c`
+* creating a Cocoa (OS X) application to provide instant visualisation and control.
+
+Screenshots
+-----------
+
 ![Visualising Mandelbrot Set in Mathematica](https://github.com/ollief/mandelzoom/raw/master/img/mandelzoom-1.png)
 
-The next step is to create a Cocoa (OS X) application to provide instant visualisation and control.
