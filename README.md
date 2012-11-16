@@ -9,7 +9,7 @@ The main files (`mandelzoom.c` and `mandelzoom.h`) are the core of this project.
 * print the representation as a matrix.
 
 The command line program (`mandelzoom-command-line.c`) makes use of those functions to print a matrix into a file: `$./mandelzoom -2 -1.25 2.5 200 > out.txt` which can then be imported into Mathematica for visualization :
-    M = Import["/Users/ollief/Documents/mandelzoom/out.txt", "csv"];
-    ArrayPlot[M, Frame -> None]
+    ```M = Import["/Users/ollief/Documents/mandelzoom/out.txt", "csv"];
+    ArrayPlot[M, Frame -> None]```
 
 The next step is to create a Cocoa (OS X) application to provide instant visualisation and control.
