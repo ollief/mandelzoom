@@ -26,7 +26,7 @@ The next steps
 --------------
 * implementing argument validation for functions in `mandelbrot.c`
 * documenting the header file and the functions in `mandelbrot.c`
-* creating a Cocoa (OS X) application to provide instant visualisation and control.
+* creating a Cocoa (OS X) application to provide *instant visualisation and control*.
 
 Screenshots
 -----------
