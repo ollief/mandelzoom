@@ -42,7 +42,6 @@ vector* vector_create(int n) {
 
 	/* The memory for the elements has been allocated successfully,
 	   can set up the vector structure and return it. */
-		success, make a vector struct
 	v->size = n;
 	v->data = data;
 
