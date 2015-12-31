@@ -2,6 +2,7 @@
 # Compilation artifacts
 *.a
 *.o
+*.out
 
 # Editor temporary files
 *.swp
