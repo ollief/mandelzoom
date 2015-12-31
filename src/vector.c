@@ -1,9 +1,6 @@
 /* The vector ADT */
 #include "vector.h"
 
-#include <stdlib.h>  /* malloc and friends */
-#include <stdbool.h> /* I can has bool in C99 */
-
 /* Decode the provided error code. Returns a string. */
 char* vector_report(int error) {
 	switch (error) {
@@ -26,13 +23,13 @@ char* vector_report(int error) {
 
 /* Create an empty vector of size n. The element values are not defined */
 vector* vector_create(int n) {
-	
+
 	/* Allocate the memory for the vector data structure */
 	vector* v = malloc(sizeof(vector));
 
-	/* Report the allocation error, if unsuccessful. */	
+	/* Report the allocation error, if unsuccessful. */
 	if (!v) {
-		vector_error = VECTOR_ERR_MALLOC;	
+		vector_error = VECTOR_ERR_MALLOC;
 		return NULL;
 	}
 
@@ -49,19 +46,19 @@ vector* vector_create(int n) {
 	v->size = n;
 	v->data = data;
 
-	/* Report success by resetting the error variable, 
+	/* Report success by resetting the error variable,
 	   and return the vector. */
 	vector_error = VECTOR_SUCCESS;
-	return v;	
+	return v;
 }
 
-/* Returns true if the given vector is empty. 
+/* Returns true if the given vector is empty.
    Returns false if the given vector is not empty.
    If NULL pointer is passed, returns false and sets the vector_error */
 bool vector_empty(vector* v) {
 
 	/* NULL should not have been passed into this function.
-	   A NULL pointer is not an empty vector, so return false and 
+	   A NULL pointer is not an empty vector, so return false and
 	   set the global error variable. */
 	if (!v) {
 		vector_error = VECTOR_ERR_PARAMETERS;
@@ -72,4 +69,3 @@ bool vector_empty(vector* v) {
 	   determine if it is zero. */
 	return ( 0 == v->size );
 }
-

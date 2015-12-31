@@ -1,5 +1,8 @@
 /* The vector ADT */
 
+#include <stdlib.h>  /* malloc and friends */
+#include <stdbool.h> /* I can has bool in C99 */
+
 /* A vector is an array of numbers of double precision.
    This structure is not to be used directly. */
 typedef struct {
@@ -17,3 +20,7 @@ int vector_error;
 #define VECTOR_ERR_MALLOC_DATA 2
 #define VECTOR_ERR_PARAMETERS 3
 
+/* Forward declarations */
+char* vector_report(int error);
+vector* vector_create(int n);
+bool vector_empty(vector* v);

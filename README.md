@@ -10,17 +10,28 @@ The main files (`mandelzoom.c` and `mandelzoom.h`) are the core of this project.
 
 The command line program (`mandelzoom-command-line.c`) makes use of those functions to print a matrix into a file.
 
-To compile, use `$gcc -Wall -std=c99 mandelzoom.c mandelzoom-command-line.c -o mandelzoom`.
+Building
+--------
 
-To run, use `$./mandelzoom -2 -1.25 2.5 200 > out.txt`.
+Build with `$gcc -Wall -std=c99 mandelzoom.c mandelzoom-command-line.c -o mandelzoom`.
 
-The parameters are, the starting x and y coordinates (Re and Im) parts, 
+Running
+-------
+
+Use the `mandelzoom` command-line application.
+Example: `$./mandelzoom -2 -1.25 2.5 200 > out.txt`.
+
+The parameters are, the starting x and y coordinates (Re and Im) parts,
 the length of the side of the rectangle to be rendered, and an _optional_ parameter
 to indicate the resolution (default = 400). Higher resolution takes more processing time.
 
 The output can be imported into Mathematica for visualization :
 ```M = Import["/Users/ollief/Documents/mandelzoom/out.txt", "csv"];
 ArrayPlot[M, Frame -> None]```
+
+Requirements
+------------
+Unit-testing Mandelzoom requires Unity but one can build and run Mandelzoom without it.
 
 The next steps
 --------------
@@ -32,4 +43,3 @@ Screenshots
 -----------
 
 ![Visualising Mandelbrot Set in Mathematica](https://github.com/ollief/mandelzoom/raw/master/img/mandelzoom-1.png)
-

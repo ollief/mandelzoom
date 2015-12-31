@@ -1,8 +1,12 @@
 
-# Compilation artefacts
+# Compilation artifacts
 *.a
 *.o
 
 # Editor temporary files
 *.swp
 
+# Unity C test harness
+unity/
+test/test_runners/*
+!test/test_runners/README.md
