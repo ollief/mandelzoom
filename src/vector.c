@@ -1,7 +1,8 @@
 /* The vector ADT */
 #include "vector.h"
 
-#include <stdlib.h> /* malloc and friends*/
+#include <stdlib.h>  /* malloc and friends */
+#include <stdbool.h> /* I can has bool in C99 */
 
 /* Decode the provided error code. Returns a string. */
 char* vector_report(int error) {
@@ -14,6 +15,9 @@ char* vector_report(int error) {
 			break;
 		case VECTOR_ERR_MALLOC_DATA:
 			return "failed to allocate memory for the elements of the vector";
+			break;
+		case VECTOR_ERR_PARAMETERS:
+			return "invalid parameters were provided to the function";
 			break;
 	}
 
@@ -49,5 +53,23 @@ vector* vector_create(int n) {
 	   and return the vector. */
 	vector_error = VECTOR_SUCCESS;
 	return v;	
+}
+
+/* Returns true if the given vector is empty. 
+   Returns false if the given vector is not empty.
+   If NULL pointer is passed, returns false and sets the vector_error */
+bool vector_empty(vector* v) {
+
+	/* NULL should not have been passed into this function.
+	   A NULL pointer is not an empty vector, so return false and 
+	   set the global error variable. */
+	if (!v) {
+		vector_error = VECTOR_ERR_PARAMETERS;
+		return false;
+	}
+
+	/* Read the vector size from the underlying data structure and
+	   determine if it is zero. */
+	return ( 0 == v->size );
 }
 

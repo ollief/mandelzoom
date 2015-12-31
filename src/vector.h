@@ -15,4 +15,5 @@ int vector_error;
 #define VECTOR_SUCCESS 0
 #define VECTOR_ERR_MALLOC 1
 #define VECTOR_ERR_MALLOC_DATA 2
+#define VECTOR_ERR_PARAMETERS 3
 
