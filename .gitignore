@@ -1,0 +1,7 @@
+
+# Compilation artefacts
+*.a *.o 
+
+# Editor temporary files
+*.swp
+
