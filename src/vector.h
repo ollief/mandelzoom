@@ -23,9 +23,12 @@ int vector_error;
 #define VECTOR_ERR_NULL 4
 #define VECTOR_ERR_OUT_OF_BOUNDS 5
 
-/* Forward declarations */
+/* Forward declarations: general vector functions (housekeeping). */
 char* vector_report(const int error);
 vector* vector_create(const int n);
 bool vector_empty(const vector* v);
 int vector_size(const vector* v);
 double* vector_at(const vector* v, int i);
+
+/* Forward declarations: useful operations with vectors. */
+vector* linspace(const double x0, const double x1, const int n);

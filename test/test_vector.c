@@ -161,3 +161,41 @@ void test_vector_at(void) {
 	TEST_ASSERT_EQUAL_FLOAT(*r, *vector_at(v,1));
 	TEST_ASSERT_EQUAL(VECTOR_SUCCESS, vector_error);
 }
+
+
+/* Test linspace function. */
+void test_linspace(void) {
+	vector* v;
+
+	/* Creating a linear space with a reasonable range. */
+	v = linspace(0.0, 5.0, 6);
+	TEST_ASSERT_NOT_NULL(v);
+	TEST_ASSERT_EQUAL(VECTOR_SUCCESS, vector_error);
+	TEST_ASSERT_EQUAL(6, vector_size(v));
+	for (size_t i = 0; i < vector_size(v); i++) {
+		TEST_ASSERT_EQUAL_FLOAT((double) i, *vector_at(v,i));
+		TEST_ASSERT_EQUAL(VECTOR_SUCCESS, vector_error);
+	}
+
+	/* Creating a linear space with a descending range.
+	   TODO: descending ranges can be implemented, actually */
+	v = linspace(5.0, 0.0, 6);
+	TEST_ASSERT_NULL(v);
+	TEST_ASSERT_EQUAL(VECTOR_ERR_PARAMETERS, vector_error);
+
+	/* Creating a linear space with negative number of elements. */
+	v = linspace(0.0, 5.0, -6);
+	TEST_ASSERT_NULL(v);
+	TEST_ASSERT_EQUAL(VECTOR_ERR_PARAMETERS, vector_error);
+
+	/* Creating a linear space with a singular range. */
+	v = linspace(1.0, 1.0, 6);
+	TEST_ASSERT_NOT_NULL(v);
+	TEST_ASSERT_EQUAL(VECTOR_SUCCESS, vector_error);
+	TEST_ASSERT_EQUAL(6, vector_size(v));
+	for (size_t i = 0; i < vector_size(v); i++) {
+		TEST_ASSERT_EQUAL_FLOAT(1.0, *vector_at(v,i));
+		TEST_ASSERT_EQUAL(VECTOR_SUCCESS, vector_error);
+	}
+
+}

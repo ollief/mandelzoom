@@ -124,3 +124,38 @@ double* vector_at(const vector* v, int i) {
 	vector_error = VECTOR_SUCCESS;
 	return ((v->data) + i * sizeof(double));
 }
+
+/* Similar to MATLAB's function of the same name.
+   TODO: only ascending values are supported, descending values return error.
+   Returns a vector, or NULL in case of error.
+	 The global error variable is set to corresponding value in the latter case. */
+vector* linspace(const double x0, const double x1, const int n) {
+
+	/* Only ascending values are supported.
+	   TODO: there is no good reason for this restriction */
+	if (x0 > x1) {
+		vector_error = VECTOR_ERR_PARAMETERS;
+		return NULL;
+	}
+
+	/* The linspace must be of nonzero size.
+	   TODO: could this be fixed by using size_t instead? */
+	if (n <= 0) {
+		vector_error = VECTOR_ERR_PARAMETERS;
+		return NULL;
+	}
+
+	vector* v = vector_create(n);
+	if (!v) {
+		/* the vector_error code is already set */
+		return NULL;
+	}
+
+	for (size_t i = 0; i < n; i++) {
+		*vector_at(v,i) = x0 + i * (x1-x0)/(n-1);
+	}
+
+	/* Report success, return the result. */
+	vector_error = VECTOR_SUCCESS;
+	return v;
+}
