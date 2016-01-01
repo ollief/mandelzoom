@@ -3,6 +3,7 @@
 *.a
 *.o
 *.out
+*.out.stackdump
 
 # Editor temporary files
 *.swp
