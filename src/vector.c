@@ -39,7 +39,10 @@ vector* vector_create(int n) {
 	}
 
 	/* Since allocation of the vector was successful,
-	   allocate the memory for the elements. */
+	   allocate the memory for the elements.
+		 NB: malloc(0) can return either a unique pointer *or* NULL,
+		 http://stackoverflow.com/questions/2022335/whats-the-point-in-malloc0
+		 In any case the result can be passed to free(). */
 	double* data = malloc( n*sizeof(double) );
 	if (! data) {
 		vector_error = VECTOR_ERR_MALLOC_DATA;
@@ -66,7 +69,7 @@ bool vector_empty(vector* v) {
 	   A NULL pointer is not an empty vector, so return false and
 	   set the global error variable. */
 	if (!v) {
-		vector_error = VECTOR_ERR_PARAMETERS;
+		vector_error = VECTOR_ERR_NULL;
 		return false;
 	}
 

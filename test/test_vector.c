@@ -10,7 +10,7 @@ void test_vector_empty(void) {
 	vector_error = VECTOR_SUCCESS; /* reset status */
 
 	TEST_ASSERT_FALSE( vector_empty(NULL) );
-	TEST_ASSERT_EQUAL(vector_error, VECTOR_ERR_PARAMETERS);
+	TEST_ASSERT_EQUAL(vector_error, VECTOR_ERR_NULL);
 
 	vector_error = VECTOR_SUCCESS; /* reset status */
 
