@@ -9,7 +9,7 @@ ifeq ($(OSTYPE),cygwin)
 	MKDIR = mkdir -p
 	TARGET_EXTENSION=.out
 elseifeq ($(OSTYPE),msys)
-    CLEANUP = rm -f
+  CLEANUP = rm -f
 	MKDIR = mkdir -p
 	TARGET_EXTENSION=.exe
 elseifeq ($(OS),Windows_NT)
@@ -48,12 +48,15 @@ SRC_FILES1=$(UNITY_ROOT)/src/unity.c src/vector.c  test/test_vector.c  test/test
 INC_DIRS=-Isrc -I$(UNITY_ROOT)/src
 SYMBOLS=-DTEST
 
-all: clean default
+.PHONY: all test clean
 
-default:
+all: clean test
+
+test:
 	ruby $(UNITY_ROOT)/auto/generate_test_runner.rb test/test_vector.c  test/test_runners/test_vector_runner.c
-	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES1) -o $(TARGET1)
-	./$(TARGET1)
+	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES1) -o test/$(TARGET1)
+	./test/$(TARGET1)
 
 clean:
-	(cd src; $(CLEANUP) *.o *.out *.out.stackdump)
+	(cd src;  $(CLEANUP) *.o *.out *.out.stackdump)
+	(cd test; $(CLEANUP) *.o *.out *.out.stackdump test_runners/*.c)
