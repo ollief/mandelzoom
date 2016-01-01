@@ -28,6 +28,12 @@ char* vector_report(int error) {
 
 /* Create an empty vector of size n. The element values are not defined */
 vector* vector_create(int n) {
+	
+	/* Check the input argument. Report error if negative. */
+	if (n < 0) {
+		vector_error = VECTOR_ERR_PARAMETERS;
+		return NULL;
+	}
 
 	/* Allocate the memory for the vector data structure */
 	vector* v = malloc(sizeof(vector));

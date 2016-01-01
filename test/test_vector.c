@@ -47,24 +47,27 @@ void test_vector_create(void) {
 	   Cannot test v->data as malloc(0) can return either a pointer or NULL. */
 	v = vector_create(0);
 	TEST_ASSERT_TRUE( vector_empty(v) );
-
-	vector_error = VECTOR_SUCCESS; /* reset status */
+	TEST_ASSERT_EQUAL(vector_error, VECTOR_SUCCESS);
 
 	/* One element vector creation */
 	v = vector_create(1);
 	TEST_ASSERT_FALSE( vector_empty(v) );
 	TEST_ASSERT_EQUAL(1, v->size);
 	TEST_ASSERT_NOT_NULL( v->data );
+	TEST_ASSERT_EQUAL(vector_error, VECTOR_SUCCESS);
 
-	vector_error = VECTOR_SUCCESS; /* reset status */
+	/* Incorrect vector size is given. */
+	v = vector_create( -42 );
+	TEST_ASSERT_NULL( v );
+	TEST_ASSERT_EQUAL(vector_error, VECTOR_ERR_PARAMETERS);
 
 	/* Three element vector creation */
 	v = vector_create( 3 );
 	TEST_ASSERT_FALSE( vector_empty(v) );
 	TEST_ASSERT_EQUAL(3, v->size);
 	TEST_ASSERT_NOT_NULL( v->data );
+	TEST_ASSERT_EQUAL(vector_error, VECTOR_SUCCESS);
 
-	vector_error = VECTOR_SUCCESS; /* reset status */
 }
 
 /* Test vector_size function. */
