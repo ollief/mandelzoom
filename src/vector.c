@@ -2,7 +2,7 @@
 #include "vector.h"
 
 /* Decode the provided error code. Returns a string. */
-char* vector_report(int error) {
+char* vector_report(const int error) {
 	switch (error) {
 		case VECTOR_SUCCESS:
 			return "operation completed successfully";
@@ -27,8 +27,8 @@ char* vector_report(int error) {
 }
 
 /* Create an empty vector of size n. The element values are not defined */
-vector* vector_create(int n) {
-	
+vector* vector_create(const int n) {
+
 	/* Check the input argument. Report error if negative. */
 	if (n < 0) {
 		vector_error = VECTOR_ERR_PARAMETERS;
@@ -69,7 +69,7 @@ vector* vector_create(int n) {
 /* Returns true if the given vector is empty.
    Returns false if the given vector is not empty.
    If NULL pointer is passed, returns false and sets the vector_error */
-bool vector_empty(vector* v) {
+bool vector_empty(const vector* v) {
 
 	/* NULL should not have been passed into this function.
 	   A NULL pointer is not an empty vector, so return false and
@@ -102,6 +102,6 @@ int vector_size(const vector* v) {
 
 /* Returns a pointer to the vector element at position i.
    Returns NULL and sets global error is the value of i is out of range. */
-double* vector_at(vector* v, int i) {
+double* vector_at(const vector* v, int i) {
 	return NULL;
 }

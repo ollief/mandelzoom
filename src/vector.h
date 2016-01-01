@@ -23,7 +23,7 @@ int vector_error;
 #define VECTOR_ERR_NULL 4
 
 /* Forward declarations */
-char* vector_report(int error);
-vector* vector_create(int n);
-bool vector_empty(vector* v);
+char* vector_report(const int error);
+vector* vector_create(const int n);
+bool vector_empty(const vector* v);
 int vector_size(const vector* v);
