@@ -28,18 +28,19 @@ C_COMPILER=clang
 
 CFLAGS=-std=c99
 CFLAGS += -Wall
-#CFLAGS += -Werror
+CFLAGS += -Werror
 #CFLAGS += -Wpointer-arith
 #CFLAGS += -Wcast-align
 #CFLAGS += -Wwrite-strings
 #CFLAGS += -Wswitch-default
-#CFLAGS += -Wunreachable-code
+CFLAGS += -Wunreachable-code
 #CFLAGS += -Winit-self
-#CFLAGS += -Wmissing-field-initializers
-#CFLAGS += -Wno-unknown-pragmas
-#CFLAGS += -Wstrict-prototypes
+CFLAGS += -Wmissing-field-initializers
+CFLAGS += -Wno-unknown-pragmas
+CFLAGS += -Wstrict-prototypes
 #CFLAGS += -Wundef
-#CFLAGS += -Wold-style-definition
+CFLAGS += -Wold-style-definition
+CFLAGS += -pedantic
 
 TARGET_BASE1=vector
 TARGET1 = $(TARGET_BASE1)$(TARGET_EXTENSION)
