@@ -16,8 +16,13 @@ char* vector_report(int error) {
 		case VECTOR_ERR_PARAMETERS:
 			return "invalid parameters were provided to the function";
 			break;
+		case VECTOR_ERR_NULL:
+			return "NULL was passed into the function";
+			break;
 	}
 
+	/* This part should never be reached, but if the error code is not recognised,
+	   don't change it and report the error via the error description string. */
 	return "undefined error code";
 }
 
@@ -65,7 +70,29 @@ bool vector_empty(vector* v) {
 		return false;
 	}
 
-	/* Read the vector size from the underlying data structure and
-	   determine if it is zero. */
+	/* Report success,
+	   and return the boolean value telling whether the vector is empty. */
+	vector_error = VECTOR_SUCCESS;
 	return ( 0 == v->size );
+}
+
+/* Returns the size of the given vector.
+	 Returns -1 and sets the global error if the vector is NULL. */
+int vector_size(const vector* v) {
+
+	/* If NULL was passed, report the error and return -1 */
+	if (!v) {
+		vector_error = VECTOR_ERR_NULL;
+		return -1;
+	}
+
+	/* Otherwise, report success and return the size of the vector. */
+	vector_error = VECTOR_SUCCESS;
+	return v->size;
+}
+
+/* Returns a pointer to the vector element at position i.
+   Returns NULL and sets global error is the value of i is out of range. */
+double* vector_at(vector* v, int i) {
+	return NULL;
 }

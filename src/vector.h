@@ -14,13 +14,16 @@ typedef struct {
    vector_error which takes one of the predefined integer values. */
 int vector_error;
 
-/* The predefined error codes of the Vector library. */
+/* The predefined error codes of the Vector library.
+   For textual descriptions, see vector_report() function. */
 #define VECTOR_SUCCESS 0
 #define VECTOR_ERR_MALLOC 1
 #define VECTOR_ERR_MALLOC_DATA 2
 #define VECTOR_ERR_PARAMETERS 3
+#define VECTOR_ERR_NULL 4
 
 /* Forward declarations */
 char* vector_report(int error);
 vector* vector_create(int n);
 bool vector_empty(vector* v);
+int vector_size(const vector* v);
