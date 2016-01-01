@@ -56,4 +56,4 @@ default:
 	./$(TARGET1)
 
 clean:
-	$(CLEANUP)
+	(cd src; $(CLEANUP) *.o *.out *.out.stackdump)
