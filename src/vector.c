@@ -19,6 +19,9 @@ char* vector_report(const int error) {
 		case VECTOR_ERR_NULL:
 			return "NULL was passed into the function";
 			break;
+		case VECTOR_ERR_OUT_OF_BOUNDS:
+			return "the provided index is out of bounds";
+			break;
 	}
 
 	/* This part should never be reached, but if the error code is not recognised,
@@ -103,5 +106,21 @@ int vector_size(const vector* v) {
 /* Returns a pointer to the vector element at position i.
    Returns NULL and sets global error is the value of i is out of range. */
 double* vector_at(const vector* v, int i) {
-	return NULL;
+
+	/* The vector cannot be NULL. */
+	if (!v) {
+		vector_error = VECTOR_ERR_NULL;
+		return NULL;
+	}
+
+	/* The index cannot be out of bounds. */
+	if ((i < 0) || (vector_size(v) <= i)) {
+		vector_error = VECTOR_ERR_OUT_OF_BOUNDS;
+		return NULL;
+	}
+
+	/* Now that all checks have passed, report success and return the pointer
+	   to the double value at index i, starting from zero! */
+	vector_error = VECTOR_SUCCESS;
+	return ((v->data) + i * sizeof(double));
 }

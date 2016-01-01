@@ -21,9 +21,11 @@ int vector_error;
 #define VECTOR_ERR_MALLOC_DATA 2
 #define VECTOR_ERR_PARAMETERS 3
 #define VECTOR_ERR_NULL 4
+#define VECTOR_ERR_OUT_OF_BOUNDS 5
 
 /* Forward declarations */
 char* vector_report(const int error);
 vector* vector_create(const int n);
 bool vector_empty(const vector* v);
 int vector_size(const vector* v);
+double* vector_at(const vector* v, int i);

@@ -89,3 +89,75 @@ void test_vector_size(void) {
 	TEST_ASSERT_EQUAL(3, vector_size(v));
 	TEST_ASSERT_EQUAL(VECTOR_SUCCESS, vector_error);
 }
+
+/* Test vector_at function, which is the getter/setter. */
+void test_vector_at(void) {
+	vector* v;
+	double* r;
+
+	/* Create a one element vector, set the value, and read it back. */
+	v = vector_create(1);
+	*(v->data) = 42.0;
+
+	r = vector_at(v,0);
+	TEST_ASSERT_NOT_NULL(r);
+	TEST_ASSERT_EQUAL(VECTOR_SUCCESS, vector_error);
+	TEST_ASSERT_EQUAL_FLOAT(*r, 42.0);
+
+	/* Create a three elements vector and read the values. */
+	v = vector_create(3);
+	*(v->data) = 1.0;
+	*(v->data + sizeof(double)) = 2.0;
+	*(v->data + 2 * sizeof(double)) = 3.0;
+
+	r = vector_at(v,0);
+	TEST_ASSERT_NOT_NULL(r);
+	TEST_ASSERT_EQUAL(VECTOR_SUCCESS, vector_error);
+	TEST_ASSERT_EQUAL_FLOAT(*r, 1.0);
+
+	r = vector_at(v,1);
+	TEST_ASSERT_NOT_NULL(r);
+	TEST_ASSERT_EQUAL(VECTOR_SUCCESS, vector_error);
+	TEST_ASSERT_EQUAL_FLOAT(*r, 2.0);
+
+	r = vector_at(v,2);
+	TEST_ASSERT_NOT_NULL(r);
+	TEST_ASSERT_EQUAL(VECTOR_SUCCESS, vector_error);
+	TEST_ASSERT_EQUAL_FLOAT(*r, 3.0);
+
+	/* Test error reporting: NULL vector. */
+	v = NULL;
+	r = vector_at(v,0);
+	TEST_ASSERT_NULL(r);
+	TEST_ASSERT_EQUAL(VECTOR_ERR_NULL, vector_error);
+
+	/* Test error reporting: index out of bounds. */
+	v = vector_create(42);
+	r = vector_at(v, 100);
+	TEST_ASSERT_NULL(r);
+	TEST_ASSERT_EQUAL(VECTOR_ERR_OUT_OF_BOUNDS, vector_error);
+
+	/* Test error reporting: NULL vector error
+	   takes precedence before index out of bounds error. */
+	v = NULL;
+	r = vector_at(v, 100);
+	TEST_ASSERT_NULL(r);
+	TEST_ASSERT_EQUAL(VECTOR_ERR_NULL, vector_error);
+
+	/* Test error reporting: out of bounds for negative indices. */
+	v = vector_create(42);
+	r = vector_at(v, -1);
+	TEST_ASSERT_NULL(r);
+	TEST_ASSERT_EQUAL(VECTOR_ERR_OUT_OF_BOUNDS, vector_error);
+
+	/* Test setting values using the pointer returned by vector_at. */
+	v = vector_create(3);
+	*(v->data) = 1.0;
+	*(v->data + sizeof(double)) = 2.0;
+	*(v->data + 2 * sizeof(double)) = 3.0;
+
+	r = vector_at(v,1);
+	*r = 42.0;
+	TEST_ASSERT_EQUAL_FLOAT(*r, *vector_at(v,1));
+	TEST_ASSERT_EQUAL(VECTOR_SUCCESS, vector_error);
+}
