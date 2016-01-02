@@ -101,9 +101,6 @@ int main(void) {
   return 0;
 }
 
-/*
-For some reason, even the simplest programs using cabs() from complex were
-failing with segmentation fault under clang under cygwin. Switched to gcc for now.
-
- gcc -lm -std=c99 -Wall -pedantic -o src/mandelzoom_mark2.out src/mandelzoom_mark2.c
+/* To compile:
+   gcc -lm -std=c99 -Wall -pedantic -o src/mandelzoom_mark2.out src/mandelzoom_mark2.c
  */
