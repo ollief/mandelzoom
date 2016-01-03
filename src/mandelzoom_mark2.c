@@ -6,9 +6,9 @@
 #include <stdlib.h>
 
 /*
-   Compute the orbit for a single point in the complex plane,
-   and return the number of iterations it took for the orbit to converge,
-   limited by the given depth value.
+Compute the orbit for a single point in the complex plane,
+and return the number of iterations it took for the orbit to converge,
+limited by the given depth value.
 */
 int mandelbrot(const double re, const double im, const int depth) {
   double complex c = re + im * I;
@@ -22,67 +22,83 @@ int mandelbrot(const double re, const double im, const int depth) {
 }
 
 int main(void) {
-  /* The parameters:
-       z0 = a + bi, the starting point
-       x, the length along the real axis
-       y, the length along the imaginary axis
-       nx, number of points along real axis (discretisation)
-       ny, number of points along imaginary axis (discretisation)
-       d, the depth of each orbit
-  */
-  double a = -1.0;
-  double b = -1.0;
-  double x = 2.0;
-  double y = 2.0;
+  /*
+   *  The parameters:
+   *    z0 = a + bi, the starting point
+   *    xside, the length along the real axis
+   *    yside, the length along the imaginary axis
+   *    nx, number of points along real axis (discretisation)
+   *    ny, number of points along imaginary axis (discretisation)
+   *    depth, the maximum depth of each orbit is when it is declared divergent
+   */
+  double a = -2.0;
+  double b = -2.0;
+  double xside = 4.0;
+  double yside = 4.0;
   int nx = 1000;
   int ny = 1000;
-  int depth  = 1000;
+  int depth = 1000;
 
   /* Allocate the memory. */
   fprintf(stderr, "Allocating memory...\n");
   int* m = calloc(nx*ny, sizeof(int));
   assert( m != NULL );
 
-  /* Compute! */
+  /*
+   * Compute! The result is stored "upside-down" to the normal raster
+   * scan order, starting in the lower left corner, going from left to right,
+   * and then row by row from the bottom to the top of the image.
+   */
   fprintf(stderr, "Computing...\n");
-  for (int j=0; j<nx; j++)
-    for (int i=0; i<ny; i++) {
-      assert( (i*nx + j) < (nx*ny) );
-      m[i*nx + j] = mandelbrot(a+i*x/(nx-1),b+j*y/(ny-1),depth);
+  for (int row=0; row < ny; row++)
+    for (int column=0; column < nx; column++) {
+      assert( (row*nx + column) < (nx*ny) );
+      m[row*nx + column] = mandelbrot(a+column*xside/(nx-1),b+row*yside/(ny-1),depth);
     }
 
-  /* Write out the result as PBM (b/w bitmap format).
-     The output array must be large enough to accommodate the image.
-     Each int of the input is compressed into a single bit in the output.
-     Thus, the correct number of bytes must be allocated to cover nx*ny bits.
-     (size_t) ceil(nx*ny / (double) 8.0)
-  */
+  /*
+   * Convert the result to the format suitable for writing out as a PBM file.
+   *
+   * The output array must be large enough to accommodate the image.
+   * Each int of the input is compressed into a single bit in the output.
+   * Thus, the correct number of bytes must be allocated to cover nx*ny bits.
+   * (size_t) ceil(nx*ny / (double) 8.0)
+   */
   fprintf(stderr, "Transforming to PBM...\n");
   size_t out_size = (size_t) ceil(nx*ny / (double) 8.0);
   unsigned char* out = calloc(out_size, sizeof(unsigned char));
   assert( out != NULL );
 
-  int* i = m;
-  int* end = m + nx*ny;
+  /*
+   * In PBM, bitmap is stored in the normal raster scan order, starting from
+   * the upper left corner, going from left to right, and then row by row from
+   * the top to the bottom of the image.
+   *
+   * This order is different from the result in m. So, must convert.
+   */
+  unsigned char mask = 0x80; /* set the first bit only */
   unsigned char* out_i = out;
-  unsigned char o = 0b10000000; /* 0b... is a gcc and clang extension */
 
-  while (i < end) {
-    /* If the current point has not converged,
-       set the corresponding bit in the output. */
-    if (*i == depth) *out_i = (*out_i | o);
+  for (int row=0; row < ny; row++)
+    for (int column=0; column < nx; column++) {
 
-    /* If the current output byte has reached its most junior bit, that is
-       the value of the mask is one, advance the output pointer to the next byte
-       and reset the mask. */
-    if (o == 1) {
-      o = 0b10000000;
-      out_i++;
-    } else {
-      o >>= 1;
+      /* Find the next point to process. */
+      int x = m[row*nx + column];
+
+      /* If that point is not converging, set the bit in the output. */
+      if (x == depth) *out_i |= mask;
+
+      /* Reset the mask if the rightmost bit is reached,
+         otherwise shift the mask right. */
+      if (0x1 == mask) {
+        mask = 0x80;
+        out_i++;
+      } else {
+        mask >>= 1;
+      }
+
+      //mask = (0x1 == mask) ? 0x80 : (mask >> 1);
     }
-    i++;
-  }
 
   /* Open a file and write out the result. */
   fprintf(stderr,"Writing out the PBM...\n");
@@ -95,12 +111,12 @@ int main(void) {
   assert( result == 0);
   free(out);
 
-  /* Clean-up memory and finish the program. */
+  /* Free memory and finish the program. */
   fprintf(stderr,"All done, exiting...\n");
   free(m);
   return 0;
 }
 
 /* To compile:
-   gcc -lm -std=c99 -Wall -pedantic -o src/mandelzoom_mark2.out src/mandelzoom_mark2.c
- */
+gcc -lm -std=c99 -Wall -pedantic -o src/mandelzoom_mark2.out src/mandelzoom_mark2.c
+*/
